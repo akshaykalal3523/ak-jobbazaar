@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AK Jobbazaar – Your Career Destination</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a3a5c;
+    --accent: #e8692a;
+    --accent2: #f0a500;
+    --light: #f5f7fa;
+    --white: #ffffff;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --success: #15803d;
+    --tag-bg: #eef2ff;
+    --tag-color: #3730a3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--light); color: #1f2937; }
+
+  /* NAV */
+  nav {
+    background: var(--primary);
+    padding: 0 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px; position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  }
+  .logo { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.7rem; letter-spacing: -0.5px; }
+  .logo span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.93rem; font-weight: 500; transition: color 0.2s; }
+  nav ul a:hover { color: var(--accent); }
+  .nav-btn { background: var(--accent); color: #fff; border: none; padding: 8px 20px; border-radius: 6px; font-family: inherit; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, #0f2744 100%);
+    padding: 5rem 3rem 4rem;
+    text-align: center; color: #fff;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; position: relative; }
+  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero p { font-size: 1.1rem; color: rgba(255,255,255,0.75); margin-bottom: 2.5rem; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+  .search-bar {
+    display: flex; gap: 0; max-width: 680px; margin: 0 auto;
+    background: #fff; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+  }
+  .search-bar input { flex: 1; border: none; padding: 1rem 1.4rem; font-family: inherit; font-size: 0.97rem; outline: none; color: #1f2937; }
+  .search-bar select { border: none; border-left: 1.5px solid var(--border); padding: 0 1rem; font-family: inherit; font-size: 0.93rem; color: var(--muted); outline: none; background: #fff; }
+  .search-bar button { background: var(--accent); color: #fff; border: none; padding: 0 2rem; font-family: inherit; font-size: 0.97rem; font-weight: 600; cursor: pointer; }
+  .hero-stats { display: flex; gap: 3rem; justify-content: center; margin-top: 3rem; position: relative; }
+  .hero-stats div { text-align: center; }
+  .hero-stats .num { font-size: 2rem; font-weight: 700; color: var(--accent2); }
+  .hero-stats .lbl { font-size: 0.82rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* SECTIONS */
+  section { padding: 3.5rem 3rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.4rem; }
+  .section-sub { color: var(--muted); font-size: 0.97rem; margin-bottom: 2rem; }
+
+  /* JOB CARDS */
+  .jobs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.25rem; }
+  .job-card {
+    background: var(--white); border: 1.5px solid var(--border); border-radius: 12px;
+    padding: 1.4rem 1.5rem; transition: box-shadow 0.2s, border-color 0.2s;
+    cursor: pointer; position: relative;
+  }
+  .job-card:hover { box-shadow: 0 8px 24px rgba(26,58,92,0.12); border-color: var(--primary); }
+  .job-card .badge { display: inline-block; background: #fff7ed; color: var(--accent); font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; border: 1px solid #fcd9bc; margin-bottom: 0.7rem; }
+  .job-card h3 { font-size: 1.08rem; font-weight: 600; color: var(--primary); margin-bottom: 0.25rem; }
+  .job-card .company { color: var(--muted); font-size: 0.88rem; margin-bottom: 0.8rem; }
+  .job-card .meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.9rem; }
+  .job-card .tag { background: var(--tag-bg); color: var(--tag-color); font-size: 0.78rem; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
+  .job-card .salary { color: var(--success); font-weight: 600; font-size: 0.9rem; }
+  .job-card .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 0.9rem; margin-top: 0.9rem; }
+  .btn-apply { background: var(--primary); color: #fff; border: none; padding: 7px 18px; border-radius: 6px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .btn-apply:hover { background: #0f2744; }
+  .btn-save { background: none; border: 1.5px solid var(--border); color: var(--muted); padding: 6px 14px; border-radius: 6px; font-family: inherit; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+  .btn-save:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* JD MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    z-index: 200; align-items: center; justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--white); border-radius: 16px; width: 90%; max-width: 760px;
+    max-height: 88vh; overflow-y: auto; padding: 2.2rem 2.4rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+  .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--muted); line-height: 1; }
+  .modal h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--primary); }
+  .modal .co-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 0.7rem 0 1.2rem; }
+  .modal .co-row span { font-size: 0.9rem; color: var(--muted); }
+  .modal .co-row strong { color: var(--success); }
+  .modal section { padding: 0; margin-bottom: 1.2rem; }
+  .modal h4 { font-size: 1rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem; border-left: 3px solid var(--accent); padding-left: 0.6rem; }
+  .modal ul { list-style: disc; padding-left: 1.4rem; font-size: 0.93rem; line-height: 1.8; color: #374151; }
+  .modal .comp-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  .modal .comp-table th { background: var(--primary); color: #fff; padding: 8px 12px; text-align: left; }
+  .modal .comp-table td { padding: 7px 12px; border-bottom: 1px solid var(--border); }
+  .modal .comp-table tr:nth-child(even) td { background: #f8fafc; }
+  .modal .comp-table tfoot td { font-weight: 700; background: #fff7ed; color: var(--accent); }
+
+  /* RECRUITMENT POLICY */
+  .policy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
+  .policy-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .policy-card .icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1rem; }
+  .policy-card h3 { font-size: 1rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem; }
+  .policy-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+  .ic-blue { background: #e0f2fe; }
+  .ic-green { background: #dcfce7; }
+  .ic-amber { background: #fef3c7; }
+  .ic-pink { background: #fce7f3; }
+  .ic-purple { background: #ede9fe; }
+  .ic-teal { background: #d1fae5; }
+
+  /* PROCESS STEPS */
+  .process-steps { display: flex; gap: 0; flex-wrap: wrap; margin-bottom: 2rem; }
+  .step { flex: 1; min-width: 140px; text-align: center; position: relative; padding: 1.2rem 0.8rem; }
+  .step::after { content: '→'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1.1rem; z-index: 1; }
+  .step:last-child::after { display: none; }
+  .step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: #fff; font-weight: 700; font-size: 1rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; }
+  .step p { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
+
+  /* COMPENSATION */
+  .comp-overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
+  .comp-card { background: var(--white); border-radius: 12px; padding: 1.3rem 1.4rem; border-left: 4px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .comp-card h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 0.3rem; }
+  .comp-card .val { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
+  .comp-card p { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* SALARY TABLE */
+  .salary-table-wrap { overflow-x: auto; margin-top: 1.5rem; }
+  table.salary-t { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  table.salary-t th { background: var(--primary); color: #fff; padding: 10px 14px; text-align: left; font-weight: 500; }
+  table.salary-t td { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+  table.salary-t tr:nth-child(even) td { background: #f8fafc; }
+  table.salary-t .total { font-weight: 700; background: #fff7ed !important; }
+  table.salary-t .net { color: var(--success); font-weight: 700; }
+
+  /* ABOUT / FOOTER */
+  .about-strip { background: var(--primary); color: rgba(255,255,255,0.85); text-align: center; padding: 2.5rem 3rem; }
+  .about-strip h2 { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.8rem; margin-bottom: 0.6rem; }
+  .about-strip p { max-width: 600px; margin: 0 auto; font-size: 0.95rem; line-height: 1.7; }
+  footer { background: #0d2137; color: rgba(255,255,255,0.5); text-align: center; padding: 1.2rem; font-size: 0.83rem; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.8rem; border-bottom: 2px solid var(--border); padding-bottom: 0; }
+  .tab { background: none; border: none; padding: 0.7rem 1.4rem; font-family: inherit; font-size: 0.93rem; font-weight: 500; color: var(--muted); cursor: pointer; border-bottom: 2.5px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+  .tab.active { color: var(--primary); border-bottom-color: var(--accent); }
+
+  @media (max-width: 700px) {
+    nav { padding: 0 1.2rem; }
+    section { padding: 2rem 1.2rem; }
+    .hero { padding: 3rem 1.2rem 2.5rem; }
+    .hero h1 { font-size: 2rem; }
+    nav ul { display: none; }
+    .hero-stats { gap: 1.5rem; }
+    .search-bar { flex-direction: column; border-radius: 8px; }
+    .search-bar select, .search-bar button { border: none; border-top: 1px solid var(--border); }
+    .search-bar button { padding: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">AK <span>Jobbazaar</span></div>
+  <ul>
+    <li><a href="#jobs">Browse Jobs</a></li>
+    <li><a href="#policy">Recruitment Policy</a></li>
+    <li><a href="#compensation">Compensation</a></li>
+    <li><a href="#about">About Us</a></li>
+  </ul>
+  <button class="nav-btn">Post a Job</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Find Your <em>Dream Job</em><br>With AK Jobbazaar</h1>
+  <p>Connecting ambitious professionals with India's fastest-growing companies. Transparent salaries, verified employers, real opportunities.</p>
+  <div class="search-bar">
+    <input type="text" placeholder="Job title, keywords or company…" />
+    <select>
+      <option>All Locations</option>
+      <option>Mumbai</option>
+      <option>Pune</option>
+      <option>Bengaluru</option>
+      <option>Delhi NCR</option>
+      <option>Hyderabad</option>
+      <option>Remote</option>
+    </select>
+    <button>Search Jobs</button>
+  </div>
+  <div class="hero-stats">
+    <div><div class="num">5,200+</div><div class="lbl">Live Jobs</div></div>
+    <div><div class="num">1,800+</div><div class="lbl">Companies</div></div>
+    <div><div class="num">98K+</div><div class="lbl">Candidates</div></div>
+    <div><div class="num">4.8★</div><div class="lbl">Candidate Rating</div></div>
+  </div>
+</div>
+
+<!-- JOB LISTINGS -->
+<section id="jobs">
+  <div class="section-title">Featured Job Openings</div>
+  <div class="section-sub">5 curated profiles with complete Job Descriptions — click to view full details & compensation</div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="filterJobs('all', this)">All Profiles</button>
+    <button class="tab" onclick="filterJobs('tech', this)">Technology</button>
+    <button class="tab" onclick="filterJobs('hr', this)">HR</button>
+    <button class="tab" onclick="filterJobs('finance', this)">Finance</button>
+    <button class="tab" onclick="filterJobs('marketing', this)">Marketing</button>
+  </div>
+
+  <div class="jobs-grid" id="jobsGrid"></div>
+</section>
+
+<!-- RECRUITMENT POLICY -->
+<section id="policy" style="background:#f0f4f8; border-radius: 16px; margin: 0 2rem;">
+  <div class="section-title">Recruitment & Selection Policy</div>
+  <div class="section-sub">Our structured, fair, and transparent hiring framework ensures the best talent for every role</div>
+
+  <div style="margin-bottom:2rem;">
+    <h3 style="font-size:1rem; font-weight:600; color:var(--primary); margin-bottom:1rem;">Hiring Process Flow</h3>
+    <div class="process-steps">
+      <div class="step"><div class="step-num">1</div><p>Job Requisition & Approval</p></div>
+      <div class="step"><div class="step-num">2</div><p>Job Description Publishing</p></div>
+      <div class="step"><div class="step-num">3</div><p>Application Screening</p></div>
+      <div class="step"><div class="step-num">4</div><p>Technical / Aptitude Test</p></div>
+      <div class="step"><div class="step-num">5</div><p>HR Interview</p></div>
+      <div class="step"><div class="step-num">6</div><p>Panel / Final Interview</p></div>
+      <div class="step"><div class="step-num">7</div><p>Offer Letter & Onboarding</p></div>
+    </div>
+  </div>
+
+  <div class="policy-grid">
+    <div class="policy-card">
+      <div class="icon ic-blue">📋</div>
+      <h3>Equal Opportunity Hiring</h3>
+      <p>AK Jobbazaar is an equal-opportunity employer. All applicants are evaluated solely on merit, skills, and qualifications — regardless of gender, caste, religion, age, or disability.</p>
+    </div>
+    <div class="policy-card">
+      <div class="icon ic-green">🔍</div>
+      <h3>Background Verification</h3>
+      <p>All selected candidates undergo mandatory background and reference checks including academic credentials, previous employment verification, and criminal record clearance before joining.</p>
+    </div>
+    <div class="policy-card">
+      <div class="icon ic-amber">📅</div>
+      <h3>Timeline Commitment</h3>
+      <p>We commit to completing end-to-end hiring within 21 working days — from job posting to offer letter issuance — to respect candidate time and business urgency.</p>
+    </div>
+    <div class="policy-card">
+      <div class="icon ic-pink">🤝</div>
+      <h3>Internal Mobility First</h3>
+      <p>Open positions are first shared internally for 5 days. Internal applicants meeting 80% of requirements are given priority before external hiring begins.</p>
+    </div>
+    <div class="policy-card">
+      <div class="icon ic-purple">📊</div>
+      <h3>Structured Interviews</h3>
+      <p>All interviews are competency-based with standardised rubrics. Panel interviews require minimum two evaluators. Scores are documented on the ATS platform.</p>
+    </div>
+    <div class="policy-card">
+      <div class="icon ic-teal">🔒</div>
+      <h3>Confidentiality & GDPR</h3>
+      <p>All candidate data is stored securely and used only for recruitment purposes. Data is deleted within 12 months of rejection unless candidate opts into the talent pool.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPENSATION -->
+<section id="compensation">
+  <div class="section-title">Compensation Policy</div>
+  <div class="section-sub">Competitive, transparent, and performance-linked remuneration across all levels</div>
+
+  <div class="comp-overview">
+    <div class="comp-card">
+      <h4>Policy Philosophy</h4>
+      <div class="val">Pay-for-Performance</div>
+      <p>70% fixed, 30% variable linked to KPIs</p>
+    </div>
+    <div class="comp-card" style="border-left-color:var(--accent);">
+      <h4>Review Cycle</h4>
+      <div class="val">Annual + Mid-Year</div>
+      <p>April appraisal with increments effective from July</p>
+    </div>
+    <div class="comp-card" style="border-left-color:var(--success);">
+      <h4>Median Increment</h4>
+      <div class="val">12–18%</div>
+      <p>For employees rated "Exceeds Expectations"</p>
+    </div>
+    <div class="comp-card" style="border-left-color:#7c3aed;">
+      <h4>Benefits Package</h4>
+      <div class="val">₹48,000/yr</div>
+      <p>Medical, LTA, Meal, Internet & Phone allowances</p>
+    </div>
+  </div>
+
+  <div class="salary-table-wrap">
+    <table class="salary-t">
+      <thead>
+        <tr>
+          <th>Profile / Designation</th>
+          <th>Basic (40%)</th>
+          <th>HRA (50% of Basic)</th>
+          <th>Special Allowance</th>
+          <th>PF – Employer (12%)</th>
+          <th>Gross CTC / Month</th>
+          <th>Annual CTC</th>
+          <th>In-hand (est.)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Software Engineer – L2</strong></td>
+          <td>₹40,000</td>
+          <td>₹20,000</td>
+          <td>₹28,800</td>
+          <td>₹4,800</td>
+          <td>₹93,600</td>
+          <td><strong>₹11.23 LPA</strong></td>
+          <td class="net">₹78,000–82,000</td>
+        </tr>
+        <tr>
+          <td><strong>HR Manager – M1</strong></td>
+          <td>₹36,000</td>
+          <td>₹18,000</td>
+          <td>₹22,000</td>
+          <td>₹4,320</td>
+          <td>₹80,320</td>
+          <td><strong>₹9.64 LPA</strong></td>
+          <td class="net">₹67,000–71,000</td>
+        </tr>
+        <tr>
+          <td><strong>Digital Marketing Manager</strong></td>
+          <td>₹32,000</td>
+          <td>₹16,000</td>
+          <td>₹20,000</td>
+          <td>₹3,840</td>
+          <td>₹71,840</td>
+          <td><strong>₹8.62 LPA</strong></td>
+          <td class="net">₹60,000–64,000</td>
+        </tr>
+        <tr>
+          <td><strong>Financial Analyst – A2</strong></td>
+          <td>₹38,000</td>
+          <td>₹19,000</td>
+          <td>₹24,000</td>
+          <td>₹4,560</td>
+          <td>₹85,560</td>
+          <td><strong>₹10.27 LPA</strong></td>
+          <td class="net">₹71,000–75,000</td>
+        </tr>
+        <tr>
+          <td><strong>Operations Manager – M2</strong></td>
+          <td>₹48,000</td>
+          <td>₹24,000</td>
+          <td>₹32,000</td>
+          <td>₹5,760</td>
+          <td>₹1,09,760</td>
+          <td><strong>₹13.17 LPA</strong></td>
+          <td class="net">₹90,000–95,000</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:2rem; background:#fff; border-radius:12px; border:1.5px solid var(--border); padding:1.4rem 1.6rem;">
+    <h4 style="color:var(--primary); font-weight:600; margin-bottom:1rem; font-size:1rem;">Salary Components Breakdown – All Profiles</h4>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; font-size:0.88rem;">
+      <div><strong>Basic Salary</strong><br><span style="color:var(--muted);">40% of CTC – taxable, PF eligible</span></div>
+      <div><strong>House Rent Allowance (HRA)</strong><br><span style="color:var(--muted);">50% of Basic – partially tax exempt</span></div>
+      <div><strong>Special / Flexible Allowance</strong><br><span style="color:var(--muted);">Balancing component – role-specific</span></div>
+      <div><strong>Provident Fund (PF)</strong><br><span style="color:var(--muted);">12% of Basic each (employer + employee)</span></div>
+      <div><strong>Medical Allowance</strong><br><span style="color:var(--muted);">₹1,250/month – reimbursement basis</span></div>
+      <div><strong>Leave Travel Allowance (LTA)</strong><br><span style="color:var(--muted);">₹15,000/year – claimable twice in 4 yrs</span></div>
+      <div><strong>Performance Bonus</strong><br><span style="color:var(--muted);">8–15% of annual CTC, Q4 payout</span></div>
+      <div><strong>Gratuity</strong><br><span style="color:var(--muted);">4.81% of Basic after 5 years service</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="about-strip" id="about">
+  <h2>About AK Jobbazaar</h2>
+  <p>Founded to bridge the gap between talent and opportunity, AK Jobbazaar is a digital recruitment platform designed for the modern Indian workforce. We partner with organisations committed to transparent hiring, competitive compensation, and inclusive workplaces. Our end-to-end portal handles everything — from job discovery to onboarding — making hiring human again.</p>
+</div>
+<footer>© 2026 AK Jobbazaar Pvt. Ltd. | All rights reserved | CIN: U74999MH2024PTC000001</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalContent">
+    <div class="modal-header">
+      <div>
+        <h2 id="mTitle"></h2>
+        <div class="co-row" id="mMeta"></div>
+      </div>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div id="mBody"></div>
+  </div>
+</div>
+
+<script>
+const jobs = [
+  {
+    id: 1, category: 'tech',
+    badge: 'Full-Time', title: 'Software Engineer – L2',
+    company: 'TechVista Solutions Pvt. Ltd.', location: 'Pune / Remote',
+    tags: ['Python', 'Django', 'AWS', 'Agile'], salary: '₹9–13 LPA',
+    posted: '2 days ago',
+    jd: {
+      about: 'TechVista Solutions is a SaaS company building enterprise-grade workflow automation tools for mid-market and large enterprises across BFSI and logistics.',
+      role: 'As a Software Engineer (L2), you will design, develop, and maintain scalable backend services. You will collaborate with cross-functional teams to deliver high-quality product features in a fast-paced environment.',
+      responsibilities: [
+        'Design and implement RESTful APIs using Python/Django or FastAPI',
+        'Write clean, testable, and maintainable code with peer code review',
+        'Participate in system design and architecture discussions',
+        'Deploy and monitor services on AWS (EC2, Lambda, S3, RDS)',
+        'Contribute to CI/CD pipeline setup using GitHub Actions / Jenkins',
+        'Mentor junior developers and conduct code walkthroughs',
+        'Collaborate with Product and QA teams in Agile sprints'
+      ],
+      qualifications: [
+        "Bachelor's/Master's in Computer Science, IT, or related field",
+        '2–4 years of hands-on backend development experience',
+        'Strong proficiency in Python; knowledge of Java is a plus',
+        'Familiarity with Docker, Kubernetes, and cloud platforms',
+        'Solid understanding of databases – PostgreSQL, MongoDB',
+        'Excellent problem-solving and communication skills'
+      ],
+      ctc: '₹11.23 LPA',
+      components: [
+        ['Basic Salary', '₹40,000 / month', '₹4,80,000'],
+        ['House Rent Allowance', '₹20,000 / month', '₹2,40,000'],
+        ['Special Allowance', '₹28,800 / month', '₹3,45,600'],
+        ['Employer PF Contribution', '₹4,800 / month', '₹57,600'],
+        ['Medical Allowance', '₹1,250 / month', '₹15,000'],
+        ['Performance Bonus', '—', '₹84,600 (variable)'],
+      ],
+      total: '₹11,22,800'
+    }
+  },
+  {
+    id: 2, category: 'hr',
+    badge: 'Full-Time', title: 'HR Manager – M1',
+    company: 'PeopleFirst Consulting', location: 'Mumbai, Hybrid',
+    tags: ['Talent Acquisition', 'HRBP', 'Payroll', 'SHRM'], salary: '₹8–11 LPA',
+    posted: '1 day ago',
+    jd: {
+      about: 'PeopleFirst Consulting is a boutique HR advisory firm serving 60+ clients across FMCG, pharma, and professional services. We build people-centric workplaces.',
+      role: 'The HR Manager will lead end-to-end talent acquisition, manage employee relations, oversee payroll compliance, and drive HR digital transformation across client accounts.',
+      responsibilities: [
+        'Lead recruitment for mid and senior-level positions across client organisations',
+        'Develop and implement talent management strategies aligned with business goals',
+        'Manage employee lifecycle: onboarding, performance management, exit',
+        'Ensure compliance with labour laws: PF, ESIC, Gratuity, Maternity Act',
+        'Conduct HR audits and provide actionable recommendations to clients',
+        'Oversee monthly payroll processing using Darwinbox / SAP SuccessFactors',
+        'Drive D&I initiatives and employee engagement surveys'
+      ],
+      qualifications: [
+        "MBA/PGDM in Human Resources Management (mandatory)",
+        '4–7 years of progressive HR generalist experience',
+        'SHRM-CP or CHRP certification preferred',
+        'Proficiency in HRIS systems – Darwinbox, BambooHR, Zoho People',
+        'Strong knowledge of Indian labour and employment laws',
+        'Excellent stakeholder management and negotiation skills'
+      ],
+      ctc: '₹9.64 LPA',
+      components: [
+        ['Basic Salary', '₹36,000 / month', '₹4,32,000'],
+        ['House Rent Allowance', '₹18,000 / month', '₹2,16,000'],
+        ['Special Allowance', '₹22,000 / month', '₹2,64,000'],
+        ['Employer PF Contribution', '₹4,320 / month', '₹51,840'],
+        ['Medical Allowance', '₹1,250 / month', '₹15,000'],
+        ['Performance Bonus', '—', '₹65,000 (variable)'],
+      ],
+      total: '₹9,43,840'
+    }
+  },
+  {
+    id: 3, category: 'marketing',
+    badge: 'Full-Time', title: 'Digital Marketing Manager',
+    company: 'BrandPulse Digital Pvt. Ltd.', location: 'Bengaluru / Hybrid',
+    tags: ['SEO/SEM', 'Google Ads', 'HubSpot', 'Analytics'], salary: '₹7–10 LPA',
+    posted: '3 days ago',
+    jd: {
+      about: 'BrandPulse Digital is a growth-focused digital marketing agency serving D2C brands, EdTech startups, and e-commerce companies across India and Southeast Asia.',
+      role: 'The Digital Marketing Manager will lead performance marketing campaigns, oversee organic and paid channels, manage a team of 4 specialists, and own growth targets for key client accounts.',
+      responsibilities: [
+        'Plan and execute performance marketing campaigns (Google, Meta, LinkedIn Ads)',
+        'Manage SEO strategy including technical audits, backlink building, and content calendar',
+        'Own email marketing workflows and marketing automation via HubSpot / Mailchimp',
+        'Track and report on campaign KPIs: ROAS, CPA, CTR, conversion rates',
+        'Collaborate with design team to produce creative assets and landing pages',
+        'Manage client relationships and deliver monthly performance reports',
+        'Recruit, train, and mentor junior marketing associates'
+      ],
+      qualifications: [
+        "Bachelor's in Marketing, Business, or Mass Communication",
+        '4–6 years of digital marketing experience; 1+ year team management',
+        'Google Ads & Analytics certifications preferred',
+        'Hands-on experience with SEMrush, Ahrefs, Hotjar, or similar tools',
+        'Data-driven mindset with strong Excel/Google Sheets skills',
+        'Portfolio of successful campaigns with measurable results'
+      ],
+      ctc: '₹8.62 LPA',
+      components: [
+        ['Basic Salary', '₹32,000 / month', '₹3,84,000'],
+        ['House Rent Allowance', '₹16,000 / month', '₹1,92,000'],
+        ['Special Allowance', '₹20,000 / month', '₹2,40,000'],
+        ['Employer PF Contribution', '₹3,840 / month', '₹46,080'],
+        ['Medical Allowance', '₹1,250 / month', '₹15,000'],
+        ['Performance Bonus', '—', '₹44,600 (variable)'],
+      ],
+      total: '₹8,21,680'
+    }
+  },
+  {
+    id: 4, category: 'finance',
+    badge: 'Full-Time', title: 'Financial Analyst – A2',
+    company: 'ClearCapital Finance Ltd.', location: 'Delhi NCR',
+    tags: ['Financial Modelling', 'Excel', 'Power BI', 'CFA'], salary: '₹9–12 LPA',
+    posted: '5 days ago',
+    jd: {
+      about: 'ClearCapital Finance Ltd. is a mid-market investment advisory and corporate finance firm operating across infrastructure, manufacturing, and healthcare sectors.',
+      role: 'The Financial Analyst will support deal origination, financial modelling, valuation, and due diligence activities for M&A, project finance, and equity raise mandates.',
+      responsibilities: [
+        'Build and maintain complex financial models (DCF, LBO, comparable analysis)',
+        'Prepare investor presentations, information memoranda, and pitch decks',
+        'Conduct sector research and competitive benchmarking',
+        'Analyse financial statements: P&L, Balance Sheet, Cash Flow',
+        'Support due diligence processes and coordinate with legal and audit teams',
+        'Monitor portfolio company performance and prepare MIS reports',
+        'Present insights and recommendations to senior leadership and clients'
+      ],
+      qualifications: [
+        "CA / MBA Finance / CFA Level I or II (CFA preferred)",
+        '2–5 years in investment banking, PE, or corporate finance',
+        'Advanced Excel and financial modelling proficiency (mandatory)',
+        'Familiarity with Bloomberg, Capital IQ, or Refinitiv',
+        'Strong quantitative aptitude and business acumen',
+        'Excellent report writing and presentation skills'
+      ],
+      ctc: '₹10.27 LPA',
+      components: [
+        ['Basic Salary', '₹38,000 / month', '₹4,56,000'],
+        ['House Rent Allowance', '₹19,000 / month', '₹2,28,000'],
+        ['Special Allowance', '₹24,000 / month', '₹2,88,000'],
+        ['Employer PF Contribution', '₹4,560 / month', '₹54,720'],
+        ['Medical Allowance', '₹1,250 / month', '₹15,000'],
+        ['Performance Bonus', '—', '₹85,800 (variable)'],
+      ],
+      total: '₹10,27,520'
+    }
+  },
+  {
+    id: 5, category: 'tech',
+    badge: 'Full-Time', title: 'Operations Manager – M2',
+    company: 'LogiNxt Supply Chain Pvt. Ltd.', location: 'Hyderabad',
+    tags: ['Supply Chain', 'Lean', 'ERP', 'Six Sigma'], salary: '₹12–15 LPA',
+    posted: '1 week ago',
+    jd: {
+      about: 'LogiNxt is a tech-enabled 3PL and supply chain management company handling warehousing, last-mile delivery, and cold-chain logistics for FMCG and pharma clients.',
+      role: 'The Operations Manager will oversee end-to-end warehouse operations, manage a team of 80+ warehouse staff and supervisors, drive process improvements, and ensure SLA compliance with key client accounts.',
+      responsibilities: [
+        'Manage daily warehouse operations including inbound, outbound, and inventory control',
+        'Lead a team of shift supervisors, pickers, and logistics coordinators',
+        'Drive Lean / Six Sigma projects to eliminate waste and reduce TAT',
+        'Ensure SOPs compliance, quality standards, and safety regulations (ISO 9001)',
+        'Monitor KPIs: order fulfilment rate, inventory accuracy, shrinkage, productivity',
+        'Liaise with clients, transport partners, and customs brokers',
+        'Implement and manage WMS/ERP systems (SAP WM, Oracle WMS)'
+      ],
+      qualifications: [
+        "Bachelor's in Engineering / Supply Chain / Logistics; MBA preferred",
+        '6–10 years in warehousing/logistics operations, 2+ years in team management',
+        'Certified Lean Six Sigma Green or Black Belt preferred',
+        'Experience with SAP WM, Oracle WMS, or equivalent ERP',
+        'Strong analytical and problem-solving skills',
+        'Excellent leadership and cross-functional collaboration skills'
+      ],
+      ctc: '₹13.17 LPA',
+      components: [
+        ['Basic Salary', '₹48,000 / month', '₹5,76,000'],
+        ['House Rent Allowance', '₹24,000 / month', '₹2,88,000'],
+        ['Special Allowance', '₹32,000 / month', '₹3,84,000'],
+        ['Employer PF Contribution', '₹5,760 / month', '₹69,120'],
+        ['Medical Allowance', '₹1,250 / month', '₹15,000'],
+        ['Performance Bonus', '—', '₹84,600 (variable)'],
+      ],
+      total: '₹13,16,720'
+    }
+  }
+];
+
+function renderJobs(filter) {
+  const grid = document.getElementById('jobsGrid');
+  grid.innerHTML = '';
+  jobs.filter(j => filter === 'all' || j.category === filter).forEach(j => {
+    const card = document.createElement('div');
+    card.className = 'job-card';
+    card.innerHTML = `
+      <div class="badge">${j.badge}</div>
+      <h3>${j.title}</h3>
+      <div class="company">🏢 ${j.company} &nbsp;|&nbsp; 📍 ${j.location}</div>
+      <div class="meta">${j.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      <div class="salary">💰 ${j.salary}</div>
+      <div class="footer">
+        <span style="font-size:0.8rem;color:var(--muted);">🕒 ${j.posted}</span>
+        <div style="display:flex;gap:0.5rem;">
+          <button class="btn-save">Save</button>
+          <button class="btn-apply" onclick="openJob(${j.id})">View & Apply</button>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterJobs(cat, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderJobs(cat);
+}
+
+function openJob(id) {
+  const j = jobs.find(x => x.id === id);
+  document.getElementById('mTitle').textContent = j.title;
+  document.getElementById('mMeta').innerHTML = `
+    <span>🏢 ${j.company}</span>
+    <span>📍 ${j.location}</span>
+    <span><strong>CTC: ${j.jd.ctc}</strong></span>
+  `;
+  document.getElementById('mBody').innerHTML = `
+    <section>
+      <h4>About the Company</h4>
+      <p style="font-size:0.93rem;line-height:1.7;color:#374151;">${j.jd.about}</p>
+    </section>
+    <section>
+      <h4>Role Overview</h4>
+      <p style="font-size:0.93rem;line-height:1.7;color:#374151;">${j.jd.role}</p>
+    </section>
+    <section>
+      <h4>Key Responsibilities</h4>
+      <ul>${j.jd.responsibilities.map(r => `<li>${r}</li>`).join('')}</ul>
+    </section>
+    <section>
+      <h4>Qualifications & Requirements</h4>
+      <ul>${j.jd.qualifications.map(q => `<li>${q}</li>`).join('')}</ul>
+    </section>
+    <section>
+      <h4>Compensation Breakdown (Annual CTC: ${j.jd.ctc})</h4>
+      <table class="comp-table">
+        <thead><tr><th>Salary Component</th><th>Monthly</th><th>Annual</th></tr></thead>
+        <tbody>${j.jd.components.map(c => `<tr><td>${c[0]}</td><td>${c[1]}</td><td>${c[2]}</td></tr>`).join('')}</tbody>
+        <tfoot><tr><td><strong>Total CTC</strong></td><td>—</td><td><strong>${j.jd.total}</strong></td></tr></tfoot>
+      </table>
+    </section>
+    <div style="margin-top:1.5rem;display:flex;gap:1rem;">
+      <button class="btn-apply" style="padding:10px 28px;font-size:0.97rem;" onclick="alert('Application submitted! Our recruiter will contact you within 3 business days.')">Apply Now</button>
+      <button class="btn-save" style="padding:10px 20px;" onclick="alert('Job saved to your profile!')">Save Job</button>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+renderJobs('all');
+</script>
+</body>
+</html>
